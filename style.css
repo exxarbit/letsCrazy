@@ -1,5 +1,6 @@
 body {
-    background-color: #0a0f1e;
+    background: rgb(34,33,83);
+    background-color: #090f1e;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,10 +15,9 @@ body {
 }
 
 .inner-container {
-    background-color: #1a1f2e;
+    background: rgb(34,33,83);
+    background: #090f1e;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 30px rgba(28, 34, 13, 0.5);
     margin-top: 20px;
     min-height: 150px;
     width: 300px;
@@ -67,7 +67,7 @@ body {
 }
 
 .signal-container {
-    margin-top: 20px;
+    margin-top: 0px;
     text-align: center;
 }
 
@@ -77,7 +77,8 @@ body {
     width: 50%;
     border-radius: 8px;
     opacity: 1;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease; /* Добавлено box-shadow */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Тень вокруг изображения */
 }
 
 .fade-out {
@@ -86,8 +87,20 @@ body {
 }
 
 .fade-in {
-    opacity: 1;
-    transform: scale(1.0);
+    opacity: 0;
+    transform: scale(0.8);
+    animation: fadeIn 0.5s forwards; /* Задайте продолжительность */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 
@@ -167,4 +180,88 @@ body {
     to {
         opacity: 1;
     }
+}
+
+.round-container {
+    position: relative; /* Позволяет дочерним элементам использовать абсолютное позиционирование относительно этого контейнера */
+    width: 300px; /* Задайте фиксированную ширину, если нужно */
+    height: 300px; /* Задайте фиксированную высоту, чтобы сохранить круглый вид */
+    overflow: hidden; /* Обрезаем содержимое, которое выходит за пределы круга */
+    display: flex; /* Центрируем содержимое */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+}
+
+@keyframes spinLeftRight {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg); /* Поворот влево */
+    }
+    50% {
+        transform: rotate(0deg); /* Возвращение в центр */
+    }
+    75% {
+        transform: rotate(10deg); /* Поворот вправо */
+    }
+    100% {
+        transform: rotate(0deg); /* Возвращение в центр */
+    }
+}
+
+.wheel-image {
+    width: 100%; /* Адаптивная ширина для изображения */
+    height: auto; /* Сохранение пропорций */
+    animation: spinLeftRight 6s ease-in-out infinite; /* Анимация вращения */
+}
+
+.wheel-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%; /* Сделаем окружность */
+    box-shadow: 0 0 20px rgba(252, 252, 248, 0.7), /* Сияние желтого цвета */
+                0 0 40px rgba(255, 255, 255, 0.5); /* Более размытое сияние */
+    pointer-events: none; /* Чтобы события мыши не мешали взаимодействию с изображением */
+    z-index: -1; /* Псевдоэлемент будет ниже изображения */
+}
+
+.signal-container {
+    position: absolute; /* Абсолютное позиционирование */
+    top: 50%; /* Центрируем по вертикали */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translate(-50%, -50%); /* Сдвигаем в центр */
+    display: flex; /* Для размещения изображений сигналов в строку */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+}
+
+.message-container {
+    position: absolute; /* Позволяет позиционировать сообщение относительно родительского элемента */
+    top: 1;
+    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;/* Расстояние от верхней части окна */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translateX(-50%); /* Сдвигаем в центр */
+    color: blue; /* Цвет текста */
+    font-weight: bold; /* Жирный текст */
+    text-align: center; /* Центрирование текста */
+    z-index: 10; /* Выше остальных элементов */
+}
+
+
+.anime {
+    position: absolute;
+    width: 50px;
+    left: 20%;
+}
+
+.anime2 {
+    position: absolute;
+    width: 60px;
+    left: 70%;
 }
